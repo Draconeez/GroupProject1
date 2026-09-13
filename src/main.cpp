@@ -5,7 +5,8 @@
 #include "Reservation.h"
 #include "ReservationManager.h"
 
-void resourceLoad(std::vector<Resource>& resources) {
+void resourceLoad(std::vector<Resource>& resources) 
+{
     //Open the file for reading and check if successful
     std::ifstream file("data/resources.txt");
     if (!file.is_open())
@@ -39,8 +40,8 @@ void resourceLoad(std::vector<Resource>& resources) {
         std::cerr << "Error: File reading failed!" << std::endl;
     }
 
-    }
 }
+
 
 int main() {
     //Load resources from file and display
