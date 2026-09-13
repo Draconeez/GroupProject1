@@ -19,6 +19,10 @@ void resourceLoad(std::vector<Resource>& resources)
     //Loop to add resources to the vector
     while (std::getline(file, line)) 
     {
+        if (!line.empty() && line.back() == '\r') 
+        {
+            line.pop_back();
+        }
         lineNumber++;
         int pos1 = line.find('|');
         int pos2 = line.find('|', pos1 + 1);
@@ -51,6 +55,5 @@ int main() {
 
         resources[i].DisplayResourceInfo();
     }
-    std::cout << "Hello, World!" << std::endl;
     return 0;
 }
