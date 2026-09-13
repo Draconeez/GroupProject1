@@ -32,11 +32,13 @@ void resourceLoad(std::vector<Resource>& resources) {
     file.close();
     if (file.eof())
     {
-        std::cout << "Reached end of file." << std::endl;   
+        std::cout << "Reached end of file." << std::endl;
     }
     else
     {
-        std::cerr << "Error: File reading failed!" << std::endl;  
+        std::cerr << "Error: File reading failed!" << std::endl;
+    }
+
     }
 }
 
@@ -45,6 +47,7 @@ int main() {
     std::vector<Resource> resources;
     resourceLoad(resources);
     for(size_t i = 0; i < resources.size(); i++) {
+
         resources[i].DisplayResourceInfo();
     }
     std::cout << "Hello, World!" << std::endl;
