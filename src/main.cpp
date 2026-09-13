@@ -5,9 +5,6 @@
 #include "Reservation.h"
 #include "ReservationManager.h"
 
-<<<<<<< Updated upstream
-int main() {
-=======
 void resourceLoad(std::vector<Resource>& resources) {
     //Open the file for reading and check if successful
     std::ifstream file("data/resources.txt");
@@ -50,7 +47,6 @@ int main() {
     for(size_t i = 0; i < resources.size(); i++) {
         resources[i].DisplayResourceInfo();
     }
->>>>>>> Stashed changes
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }
