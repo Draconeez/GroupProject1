@@ -46,11 +46,11 @@ void resourceLoad(std::vector<Resource>& resources)
 
 }
 
-
 int main() {
-    //Load resources from file and display
+    //Load resources from file
     std::vector<Resource> resources;
     resourceLoad(resources);
+    ReservationManager rManager;
     for(size_t i = 0; i < resources.size(); i++) {
 
         resources[i].DisplayResourceInfo();
