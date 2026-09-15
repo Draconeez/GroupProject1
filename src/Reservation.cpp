@@ -25,12 +25,15 @@ std::string Reservation::getResourceID() {return resourceID;}
 std::string Reservation::getStudentID() {return studentID;}
 std::string Reservation::getStudentName() {return studentName;}
 std::string Reservation::getDate() {return date;}
+Reservation* Reservation::getNext() {return next;}
+
 
 void Reservation::setReservationID(std::string resID) {reservationID = resID;}
 void Reservation::setResourceID(std::string reoID) {resourceID = reoID;}
 void Reservation::setStudentID(std::string stuID) {studentID = stuID;}
 void Reservation::setStudentName(std::string name) {studentName = name;}
 void Reservation::setDate(std::string d) {date = d;}
+void Reservation::setNext(Reservation* next) {this->next = next;}
 
 //Display Reservation Information to the console
 void Reservation::DisplayReservationInfo()
