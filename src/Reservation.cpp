@@ -7,7 +7,7 @@ Reservation::Reservation()
     studentID = "";
     studentName = "";
     date = "";
-    next = NULL;
+    next = nullptr;
 };
 Reservation::Reservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d)
 {
@@ -16,7 +16,7 @@ Reservation::Reservation(std::string resID,std::string reoID, std::string stuID,
     studentID = stuID;
     studentName = name;
     date = d;
-    next = NULL;
+    next = nullptr;
 };
 //Getters and Setters  
 

@@ -10,15 +10,7 @@ class Reservation {
     Reservation* next;
 
     //Constructors
-    Reservation()
-    {
-        this -> reservationID = "";
-        this -> resourceID = "";
-        this -> studentID = "";
-        this -> studentName = "";
-        this -> date = "";
-        this -> next = NULL;
-    }
+    Reservation(){};
     Reservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d){};
 
     //Getters and Setters
