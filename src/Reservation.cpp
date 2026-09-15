@@ -3,14 +3,16 @@
 Reservation::Reservation()
 {
     reservationID = "";
+    resourceID = "";
     studentID = "";
     studentName = "";
     date = "";
     next = NULL;
 };
-Reservation::Reservation(std::string resID, std::string stuID, std::string name, std::string d)
+Reservation::Reservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d)
 {
     reservationID = resID;
+    resourceID = reoID;
     studentID = stuID;
     studentName = name;
     date = d;
@@ -19,11 +21,13 @@ Reservation::Reservation(std::string resID, std::string stuID, std::string name,
 //Getters and Setters  
 
 std::string Reservation::getReservationID() {return reservationID;}
+std::string Reservation::getResourceID() {return resourceID;}
 std::string Reservation::getStudentID() {return studentID;}
 std::string Reservation::getStudentName() {return studentName;}
 std::string Reservation::getDate() {return date;}
 
 void Reservation::setReservationID(std::string resID) {reservationID = resID;}
+void Reservation::setResourceID(std::string reoID) {resourceID = reoID;}
 void Reservation::setStudentID(std::string stuID) {studentID = stuID;}
 void Reservation::setStudentName(std::string name) {studentName = name;}
 void Reservation::setDate(std::string d) {date = d;}
@@ -32,6 +36,7 @@ void Reservation::setDate(std::string d) {date = d;}
 void Reservation::DisplayReservationInfo()
 {
     std::cout << "Reservation ID: " << reservationID << std::endl;
+    std::cout << "Resource ID: " << resourceID << std::endl;
     std::cout << "Student ID: " << studentID << std::endl;
     std::cout << "Student Name: " << studentName << std::endl;
     std::cout << "Listed Date : " << date << std::endl;

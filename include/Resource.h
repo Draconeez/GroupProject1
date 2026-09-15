@@ -1,3 +1,5 @@
+#ifndef RESOURCE_H
+#define RESOURCE_H
 #include <string>
 #include <iostream>
 class Resource {
@@ -22,6 +24,5 @@ class Resource {
     std::string resourceName;
     std::string resourceType;
     bool isAvailable;
-    
-
 };
+#endif
