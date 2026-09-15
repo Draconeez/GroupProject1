@@ -19,15 +19,7 @@ class Reservation {
         this -> date = "";
         this -> next = NULL;
     }
-    Reservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d)
-    {
-        this -> reservationID = resID;
-        this -> resourceID = reoID;
-        this -> studentID = stuID;
-        this -> studentName = name;
-        this -> date = d;
-        this -> next = NULL;
-    };
+    Reservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d){};
 
     //Getters and Setters
 
