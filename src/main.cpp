@@ -1,10 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include "Resource.h"
-#include "Reservation.h"
-#include "ReservationManager.h"
-
+#include "../include/Reservation.h"
+#include "../include/Resource.h"
+#include "../include/ReservationManager.h"
 void resourceLoad(std::vector<Resource>& resources) 
 {
     //Open the file for reading and check if successful
