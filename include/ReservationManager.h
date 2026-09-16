@@ -3,15 +3,9 @@
 #include "Reservation.h"
 #include <string>
 #include <iostream>
-#include <stack>
+
 #include <queue>
-struct CancellationHistory{
-    std::string reservationID;
-    std::string resourceID;
-    std::string studentID;
-    std::string studentName;
-    std::string date;
-};
+
 struct WaitList{
     std::string resourceID;
     std::string studentID;
@@ -22,13 +16,17 @@ class ReservationManager {
     ReservationManager();
     ~ReservationManager();
     //Add insert reservation, remove reservation, display reservations 
-
-    //Add queue methods for waitlist and stack methods for cancellation history
-
+//Insert res
+//Remove res
+//Display all res
+    //Add queue methods for waitlist 
+// Add student to waitlist
+// Remove student from waitlist
+// Display Full Waitlist
     private:
     Reservation* head;
     std::queue<WaitList> waitlist;
-    std::stack<CancellationHistory> cancelHistory;
+   
 };
 
 #endif
