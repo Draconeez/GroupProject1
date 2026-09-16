@@ -15,14 +15,13 @@ class ReservationManager {
     public:
     ReservationManager();
     ~ReservationManager();
-    //Add insert reservation, remove reservation, display reservations 
-//Insert res
-//Remove res
-//Display all res
-    //Add queue methods for waitlist 
-// Add student to waitlist
-// Remove student from waitlist
-// Display Full Waitlist
+    void insertReservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d);
+    void deleteReservation(std::string resID);
+    void displayReservations();
+    
+    void addToWaitlist(std::string resID, std::string stuID, std::string name);
+    void removeFromWaitlist(std::string resID, std::string stuID);
+    void displayWaitlist();
     private:
     Reservation* head;
     std::queue<WaitList> waitlist;
