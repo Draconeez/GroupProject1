@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stack>
 #include <queue>
+
 struct CancellationHistory{
     std::string reservationID;
     std::string resourceID;
