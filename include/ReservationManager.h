@@ -29,5 +29,14 @@ class ReservationManager {
     Reservation* head;
     std::queue<WaitList> waitlist;
     std::stack<CancellationHistory> cancelHistory;
+#include <queue>
+#include <stack>
+#include <string>
+class ReservationManager {
+private:
+
+
+public:
 };
+
 #endif
