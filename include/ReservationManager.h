@@ -1,10 +1,11 @@
 #ifndef RESERVATIONMANAGER_H
 #define RESERVATIONMANAGER_H
 #include "Reservation.h"
+#include "CancellationHistory.h"
 #include <string>
 #include <iostream>
-
 #include <queue>
+#include <stack>
 
 struct WaitList{
     std::string resourceID;
@@ -25,7 +26,7 @@ class ReservationManager {
     private:
     Reservation* head;
     std::queue<WaitList> waitlist;
-   
+    std::stack<CancellationHistory> cancellationHistory;
 };
 
 #endif
