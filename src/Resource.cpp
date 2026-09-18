@@ -29,7 +29,7 @@ std::string Resource::getResourceID()
 }
 std::string Resource::getResourceName() 
 {
-return resourceName;
+    return resourceName;
 }
 std::string Resource::getResourceType() 
 {
