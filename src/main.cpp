@@ -34,7 +34,6 @@ void resourceLoad(std::vector<Resource>& resources)
         resources.push_back(Resource(id, name, type, available));
     }
     //Check if finished with file and close it
-    file.close();
     if (file.eof())
     {
         std::cout << "Reached end of file." << std::endl;
@@ -43,6 +42,7 @@ void resourceLoad(std::vector<Resource>& resources)
     {
         std::cerr << "Error: File reading failed!" << std::endl;
     }
+    file.close();
 
 }
 void reservationFill(ReservationManager& resManager) 
@@ -77,7 +77,9 @@ int main() {
     //Load reservations from file
     ReservationManager rManager;
     reservationFill(rManager);
-    int caseNumber=0;
+    int caseNumber=0;   
+  while(caseNumber!=10)
+  {
     std::cout << "Welcome to the Resource Reservation System!" << std::endl;
     std::cout << "Please select an option from the menu below:" << std::endl;
     std::cout << "1. Display all reservations" << std::endl;
@@ -91,8 +93,6 @@ int main() {
     std::cout << "9. Display resource information" << std::endl;
     std::cout << "10. Exit" << std::endl;
     std::cin >> caseNumber;
-  while(caseNumber!=10)
-  {
     switch(caseNumber) 
         {
         case 1:
@@ -101,18 +101,50 @@ int main() {
         case 2:
             rManager.displayWaitlist();
             break;
-        case 3:
-            rManager.insertReservation("resID", "reoID", "stuID", "name", "date"); // Placeholder values; replace with actual input
+        case 3: {
+            std::string resID, reoID, stuID, name, date;
+            std::cout << "Enter Reservation ID: ";
+            std::cin >> resID;
+            std::cout << "Enter Resource ID: ";
+            std::cin >> reoID;
+            std::cout << "Enter Student ID: ";
+            std::cin >> stuID;
+            std::cin.ignore(); 
+            std::cout << "Enter Student Name: ";
+            std::getline(std::cin, name);
+            std::cout << "Enter Date (YYYY-MM-DD): ";
+            std::cin >> date;
+            rManager.insertReservation(resID, reoID, stuID, name, date); 
             break;
+        }
         case 4:
-            rManager.deleteReservation("resID"); // Placeholder value; replace with actual input
-            break;
+           { std::string resID;
+            std::cout << "Enter Reservation ID to delete: ";
+            std::cin >> resID;
+            rManager.deleteReservation(resID);
+            break;}
         case 5:
-            rManager.addToWaitlist("reoID", "stuID", "name"); // Placeholder values; replace with actual input
+              {  std::string reoID, stuID, name;
+                std::cout << "Enter Resource ID: ";
+                std::cin >> reoID;
+                std::cout << "Enter Student ID: ";
+                std::cin >> stuID; 
+                std::cin.ignore();
+                std::cout << "Enter Student Name: ";
+                std::getline(std::cin, name);
+            rManager.addToWaitlist(reoID, stuID, name);
             break;
+              }
         case 6:
-            rManager.removeFromWaitlist("reoID", "stuID"); // Placeholder values; replace with actual input
+        {
+            std::string reoID, stuID;
+                std::cout << "Enter Resource ID: ";
+                std::cin >> reoID;
+                std::cout << "Enter Student ID: ";
+                std::cin >> stuID;
+            rManager.removeFromWaitlist(reoID, stuID); 
             break;
+        }
         case 7:
             rManager.undoLastCancellation(); 
             break;
@@ -133,9 +165,5 @@ int main() {
             std::cout << "Invalid case number." << std::endl;
         }
     }
-    
-        
-
-    
     return 0;
 }
