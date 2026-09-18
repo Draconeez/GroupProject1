@@ -42,7 +42,7 @@ void resourceLoad(std::vector<Resource>& resources)
     {
         std::cerr << "Error: File reading failed!" << std::endl;
     }
-    file.close();
+    
 
 }
 void reservationFill(ReservationManager& resManager) 
@@ -80,17 +80,17 @@ int main() {
     int caseNumber=0;   
   while(caseNumber!=10)
   {
-    std::cout << "Welcome to the Resource Reservation System!" << std::endl;
-    std::cout << "Please select an option from the menu below:" << std::endl;
-    std::cout << "1. Display all reservations" << std::endl;
-    std::cout << "2. Display waitlist" << std::endl;
-    std::cout << "3. Add a reservation" << std::endl;
-    std::cout << "4. Delete a reservation" << std::endl;
-    std::cout << "5. Add to waitlist" << std::endl;
-    std::cout << "6. Remove from waitlist" << std::endl;
+    std::cout << "Hello, welcome to the Resource Reservation System!" << std::endl;
+    std::cout << "Select an option from the menu below:" << std::endl;
+    std::cout << "1. Display All Reservations" << std::endl;
+    std::cout << "2. Display Waitlist" << std::endl;
+    std::cout << "3. Add Reservation" << std::endl;
+    std::cout << "4. Delete Reservation" << std::endl;
+    std::cout << "5. Add to Waitlist" << std::endl;
+    std::cout << "6. Remove from Waitlist" << std::endl;
     std::cout << "7. Undo Reservation Cancellation" << std::endl;
-    std::cout << "8. Display cancellation history" << std::endl;
-    std::cout << "9. Display resource information" << std::endl;
+    std::cout << "8. Display Cancellation History" << std::endl;
+    std::cout << "9. Display Resource Information" << std::endl;
     std::cout << "10. Exit" << std::endl;
     std::cin >> caseNumber;
     switch(caseNumber) 
