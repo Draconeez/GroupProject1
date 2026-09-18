@@ -77,10 +77,64 @@ int main() {
     //Load reservations from file
     ReservationManager rManager;
     reservationFill(rManager);
-    for(size_t i = 0; i < resources.size(); i++) {
-
-        resources[i].DisplayResourceInfo();
+    int caseNumber=0;
+    std::cout << "Welcome to the Resource Reservation System!" << std::endl;
+    std::cout << "Please select an option from the menu below:" << std::endl;
+    std::cout << "1. Display all reservations" << std::endl;
+    std::cout << "2. Display waitlist" << std::endl;
+    std::cout << "3. Add a reservation" << std::endl;
+    std::cout << "4. Delete a reservation" << std::endl;
+    std::cout << "5. Add to waitlist" << std::endl;
+    std::cout << "6. Remove from waitlist" << std::endl;
+    std::cout << "7. Undo Reservation Cancellation" << std::endl;
+    std::cout << "8. Display cancellation history" << std::endl;
+    std::cout << "9. Display resource information" << std::endl;
+    std::cout << "10. Exit" << std::endl;
+    std::cin >> caseNumber;
+  while(caseNumber!=10)
+  {
+    switch(caseNumber) 
+        {
+        case 1:
+            rManager.displayReservations();
+            break;
+        case 2:
+            rManager.displayWaitlist();
+            break;
+        case 3:
+            rManager.insertReservation("resID", "reoID", "stuID", "name", "date"); // Placeholder values; replace with actual input
+            break;
+        case 4:
+            rManager.deleteReservation("resID"); // Placeholder value; replace with actual input
+            break;
+        case 5:
+            rManager.addToWaitlist("reoID", "stuID", "name"); // Placeholder values; replace with actual input
+            break;
+        case 6:
+            rManager.removeFromWaitlist("reoID", "stuID"); // Placeholder values; replace with actual input
+            break;
+        case 7:
+            rManager.undoLastCancellation(); 
+            break;
+        
+        case 8:
+            rManager.displayCancellationHistory();
+            break;
+        
+        case 9:
+            for(size_t i = 0; i < resources.size(); i++) {
+            resources[i].DisplayResourceInfo();
+            }
+            break;    
+        case 10:
+            std::cout << "Exiting the program." << std::endl;
+            break;
+        default:
+            std::cout << "Invalid case number." << std::endl;
+        }
     }
+    
+        
 
     
     return 0;

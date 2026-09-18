@@ -19,13 +19,15 @@ class ReservationManager {
     void insertReservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d);
     void deleteReservation(std::string resID);
     void displayReservations();
-    void addToWaitlist(std::string resID, std::string stuID, std::string name);
-    void removeFromWaitlist(std::string resID, std::string stuID);
+    void addToWaitlist(std::string reoID, std::string stuID, std::string name);
+    void removeFromWaitlist(std::string reoID, std::string stuID);
     void displayWaitlist();
+    void displayCancellationHistory();
+    void undoLastCancellation();
     private:
     Reservation* head;
     std::queue<WaitList> waitlist;
-    std::stack<CancellationHistory> cancellationHistory;
+    CancellationHistory cancelHistory;
 };
 
 #endif
