@@ -79,7 +79,7 @@ int main() {
     int caseNumber=0;   
   while(caseNumber!=10)
   {
-    std::cout << "Hello, welcome to the Resource Reservation System!" << std::endl;
+    std::cout << "====== Welcome to the Resource Reservation System! =====" << std::endl;
     std::cout << "Select an option from the menu below:" << std::endl;
     std::cout << "1. Display All Reservations" << std::endl;
     std::cout << "2. Display Waitlist" << std::endl;
@@ -102,17 +102,18 @@ int main() {
             break;
         case 3: {
             std::string resID, reoID, stuID, name, date;
-            std::cout << "Enter Reservation ID: ";
+            std::cout << "Enter Reservation ID (Ex. 001): ";
             std::cin >> resID;
-            std::cout << "Enter Resource ID: ";
+            std::cout << "Enter Resource ID(R102 - R120): ";
             std::cin >> reoID;
-            std::cout << "Enter Student ID: ";
+            std::cout << "Enter Student ID (Ex. 1234): ";
             std::cin >> stuID;
             std::cin.ignore(); 
-            std::cout << "Enter Student Name: ";
+            std::cout << "Enter Student Name (Ex. John Doe): ";
             std::getline(std::cin, name);
-            std::cout << "Enter Date (YYYY-MM-DD): ";
+            std::cout << "Enter Date (YYYY/MM/DD): ";
             std::cin >> date;
+
             //Validate if the resource exists in the system before adding the reservation
             bool resourceExists = false;
             for (size_t i = 0; i < resources.size(); i++) {
@@ -123,35 +124,35 @@ int main() {
             }
             }
             if (!resourceExists) {
-                std::cout << "Error: Resource " << reoID << " does not exist in the system." << std::endl;
+                std::cout << " == Error: Resource " << reoID << " does not exist in the system ==" << std::endl;
                 break; 
             }
             if (rManager.isResourceBooked(reoID, date)) {
-                std::cout << "Error: Resource " << reoID << " is already booked for " << date << ".\n";
+                std::cout << " == Error: Resource " << reoID << " is already booked for " << date << " ==" << std::endl;
                 break;
             }
             if (!rManager.isReservationIDExists(resID)) {
                 rManager.insertReservation(resID, reoID, stuID, name, date);
             } else {
-                std::cout << "Error: Reservation ID " << resID << " already exists." << std::endl;
+                std::cout << " == Error: Reservation ID " << resID << " already exists ==" << std::endl;
                 break;
             }
             break;
         }
         case 4:
            { std::string resID;
-            std::cout << "Enter Reservation ID to delete: ";
+            std::cout << "Enter Reservation ID to delete (Ex. 001): ";
             std::cin >> resID;
             rManager.deleteReservation(resID);
             break;}
         case 5:
               {  std::string reoID, stuID, name;
-                std::cout << "Enter Resource ID: ";
+                std::cout << "Enter Resource ID(R102 - R120): ";
                 std::cin >> reoID;
-                std::cout << "Enter Student ID: ";
-                std::cin >> stuID; 
+                std::cout << "Enter Student ID (Ex. 1234): ";
+                std::cin >> stuID;
                 std::cin.ignore();
-                std::cout << "Enter Student Name: ";
+                std::cout << "Enter Student Name (Ex. John Doe): ";
                 std::getline(std::cin, name);
             rManager.addToWaitlist(reoID, stuID, name);
             break;
@@ -159,9 +160,9 @@ int main() {
         case 6:
         {
             std::string reoID, stuID;
-                std::cout << "Enter Resource ID: ";
+                std::cout << "Enter Resource ID(R102 - R120): ";
                 std::cin >> reoID;
-                std::cout << "Enter Student ID: ";
+                std::cout << "Enter Student ID (Ex. 1234): ";
                 std::cin >> stuID;
             rManager.removeFromWaitlist(reoID, stuID); 
             break;
@@ -180,10 +181,14 @@ int main() {
             }
             break;    
         case 10:
-            std::cout << "Exiting the program." << std::endl;
+            std::cout << " *===== Exiting the program. =====* " << std::endl;
             break;
         default:
-            std::cout << "Invalid case number." << std::endl;
+            std::cout << " *-------------------------*" << std::endl;
+            std::cout << " === Invalid case number ==" << std::endl;
+            std::cout << " ==== Please Try Again ==== " << std::endl;
+            std::cout << " *-------------------------*" << std::endl;
+			std::cout << std::endl;
         }
     }
     return 0;

@@ -35,7 +35,7 @@ ReservationManager::~ReservationManager()
         //If empty list, return
         if (head == nullptr) 
         {
-            std::cout << "Reservation list is empty."<<std::endl;
+            std::cout << " == Reservation list is empty. ==" << std::endl;
             return;
         }
         //If at the head
@@ -68,7 +68,7 @@ ReservationManager::~ReservationManager()
     {
         if (head == nullptr) 
         {
-            std::cout << "Reservation list is empty."<<std::endl;
+            std::cout << " == Reservation list is empty. ==" << std::endl;
             return;
         }
         Reservation* current = head;
@@ -120,13 +120,13 @@ ReservationManager::~ReservationManager()
     {
         if (waitlist.empty()) 
         {
-            std::cout << "Waitlist is empty!"<<std::endl;
+            std::cout << " == Waitlist is empty. ==" << std::endl;
             return;
         }
         std::queue<WaitList> tempList = waitlist; // Copy so we don't destroy the real queue
         while (!tempList.empty()) {
             WaitList front = tempList.front();
-            std::cout << front.studentName << " (" << front.studentID << ") waiting for resource " << front.resourceID << std::endl;
+            std::cout << " == " << front.studentName << " (" << front.studentID << ") waiting for resource " << front.resourceID << " ==" << std::endl;
             tempList.pop();
         }
     }
@@ -138,7 +138,7 @@ ReservationManager::~ReservationManager()
     {
         if (cancelHistory.isEmpty()) 
         {
-            std::cout << "No cancellations to undo." << std::endl;
+            std::cout << " == No cancellations to undo. ==" << std::endl;
             return;
         }
         Reservation lastCancelled = cancelHistory.pop();

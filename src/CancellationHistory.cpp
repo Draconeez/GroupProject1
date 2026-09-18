@@ -11,13 +11,13 @@ bool CancellationHistory::isEmpty() {
 // add to stack
 void CancellationHistory::push(Reservation res) {
     historyStack.push_back(res);
-    std::cout << "Reservation added to cancellation history.\n";
+    std::cout << " == Reservation added to cancellation history. ==" << std::endl;
 }
 
 // remove from stack and return it
 Reservation CancellationHistory::pop() {
     if (isEmpty()) {
-        std::cout << "Error: No cancellations to undo.\n";
+        std::cout << " == Error: No cancellations to undo. ==" << std::endl;
         return Reservation(); 
     }
     
@@ -30,13 +30,13 @@ Reservation CancellationHistory::pop() {
 // print history
 void CancellationHistory::displayHistory() {
     if (isEmpty()) {
-        std::cout << "Cancellation history is empty.\n";
+        std::cout << " == Cancellation history is empty. ==" << std::endl;
         return;
     }
     
-    std::cout << "--- Cancellation History (Most Recent First) ---\n";
+    std::cout << " == Cancellation History (Most Recent First) ==" << std::endl;
     
     for (int i = historyStack.size() - 1; i >= 0; i--) {
-        std::cout << "Reservation ID: " << historyStack[i].getReservationID() << "\n";
+        std::cout << " - Reservation ID: " << historyStack[i].getReservationID() << std::endl;
     }
 }
