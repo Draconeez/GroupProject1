@@ -62,9 +62,9 @@ void reservationFill(ReservationManager& resManager)
         int pos3 = line.find('|', pos2 + 1);
         int pos4 = line.find('|', pos3 + 1);
         std::string resID = line.substr(0, pos1);
-        std::string reoID = line.substr(pos1 + 1, pos2 - (pos1 + 1));
-        std::string stuID = line.substr(pos2 + 1, pos3 - (pos2 + 1));
-        std::string name = line.substr(pos3 + 1, pos4 - (pos3 + 1));
+        std::string stuID = line.substr(pos1 + 1, pos2 - (pos1 + 1));
+        std::string name = line.substr(pos2 + 1, pos3 - (pos2 + 1));
+        std::string reoID = line.substr(pos3 + 1, pos4 - (pos3 + 1));
         std::string date = line.substr(pos4 + 1);
         resManager.insertReservation(resID, reoID, stuID, name, date);
     }
