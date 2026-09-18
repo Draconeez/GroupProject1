@@ -16,6 +16,7 @@ class ReservationManager {
     public:
     ReservationManager();
     ~ReservationManager();
+    
     void insertReservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d);
     void deleteReservation(std::string resID);
     void displayReservations();
@@ -24,6 +25,7 @@ class ReservationManager {
     void displayWaitlist();
     void displayCancellationHistory();
     void undoLastCancellation();
+    bool isReservationIDExists(std::string resID);
     private:
     Reservation* head;
     std::queue<WaitList> waitlist;

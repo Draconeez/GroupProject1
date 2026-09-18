@@ -63,6 +63,7 @@ ReservationManager::~ReservationManager()
         }
         
     }
+    
     void ReservationManager::displayReservations()
     {
         if (head == nullptr) 
@@ -76,6 +77,16 @@ ReservationManager::~ReservationManager()
             current->DisplayReservationInfo();
             current = current->getNext();
         }
+    }
+    bool ReservationManager::isReservationIDExists(std::string resID) {
+        Reservation* current = head;
+        while (current != nullptr) {
+            if (current->getReservationID() == resID) {
+                return true;
+            }
+            current = current->getNext();
+        }
+        return false;
     }
     void ReservationManager::addToWaitlist(std::string reoID, std::string stuID, std::string name)
     {

@@ -42,8 +42,7 @@ void resourceLoad(std::vector<Resource>& resources)
     {
         std::cerr << "Error: File reading failed!" << std::endl;
     }
-    
-
+    file.close();
 }
 void reservationFill(ReservationManager& resManager) 
 {
@@ -114,7 +113,26 @@ int main() {
             std::getline(std::cin, name);
             std::cout << "Enter Date (YYYY-MM-DD): ";
             std::cin >> date;
-            rManager.insertReservation(resID, reoID, stuID, name, date); 
+            //Validate if the resource exists in the system before adding the reservation
+            bool resourceExists = false;
+            for (size_t i = 0; i < resources.size(); i++) {
+            if (resources[i].getResourceID() == reoID) 
+            {
+                resourceExists = true;
+                break;
+            }
+            }
+            if (!resourceExists) {
+                std::cout << "Error: Resource " << reoID << " does not exist in the system." << std::endl;
+                break; 
+            }
+            
+            if (!rManager.isReservationIDExists(resID)) {
+                rManager.insertReservation(resID, reoID, stuID, name, date);
+            } else {
+                std::cout << "Error: Reservation ID " << resID << " already exists." << std::endl;
+                break;
+            }
             break;
         }
         case 4:
