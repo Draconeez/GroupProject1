@@ -43,6 +43,7 @@ void Reservation::DisplayReservationInfo()
     std::cout << "Student ID: " << studentID << std::endl;
     std::cout << "Student Name: " << studentName << std::endl;
     std::cout << "Listed Date : " << date << std::endl;
+    std::cout << "-------------------------" << std::endl; // for readability
 }
 
 

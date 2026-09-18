@@ -27,11 +27,48 @@ ReservationManager::~ReservationManager()
         }
     void ReservationManager::deleteReservation(std::string resID)
     {
+        // make sure there is a reservation to delete
+	if (head == nullptr)
+	{
+		std::cout << "No reservations to delete." << std::endl;
+		return;
+	}
 
-    };
+	// Delete the head node if it matches the reservation ID
+	if (head->getReservationID() == resID)
+	{
+		Reservation* temp = head;
+		head = head->getNext();
+		delete temp;
+		std::cout << "Reservation with ID " << resID << " deleted." << std::endl;
+		return;
+	}
+
+	// Traverse the linked list to find the reservation to delete
+	Reservation* current = head;
+	while (current->getNext() != nullptr)
+	{
+		if (current->getNext()->getReservationID() == resID)
+		{
+			Reservation* temp = current->getNext();
+			current->setNext(current->getNext()->getNext());
+			delete temp;
+			std::cout << "Reservation with ID " << resID << " deleted." << std::endl;
+			return;
+		}
+		current = current->getNext();
+	}
+	std::cout << "Reservation with ID " << resID << " not found." << std::endl;
+};
+
     void ReservationManager::displayReservations()
     {
-
+        Reservation* current = head;
+        while (current != nullptr)
+        {
+	        current->DisplayReservationInfo();
+	        current = current->getNext();
+        }
     }
     void ReservationManager::addToWaitlist(std::string resID, std::string stuID, std::string name)
     {

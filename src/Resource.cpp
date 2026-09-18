@@ -61,6 +61,7 @@ void Resource::DisplayResourceInfo()
     {
         std::cout << "Resource is not available." << std::endl;
     }
+    std::cout << "-------------------------" << std::endl; // for readability
 }
 
 
