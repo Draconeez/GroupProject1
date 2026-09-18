@@ -88,6 +88,16 @@ ReservationManager::~ReservationManager()
         }
         return false;
     }
+    bool ReservationManager::isResourceBooked(std::string resourceID, std::string date) {
+        Reservation* current = head;
+        while (current != nullptr) {
+            if (current->getResourceID() == resourceID && current->getDate() == date) {
+                return true;
+            }
+            current = current->getNext();
+        }
+        return false;
+    }
     void ReservationManager::addToWaitlist(std::string reoID, std::string stuID, std::string name)
     {
         WaitList addedStudent = {reoID, stuID, name};

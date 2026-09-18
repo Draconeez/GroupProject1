@@ -126,7 +126,10 @@ int main() {
                 std::cout << "Error: Resource " << reoID << " does not exist in the system." << std::endl;
                 break; 
             }
-            
+            if (rManager.isResourceBooked(reoID, date)) {
+                std::cout << "Error: Resource " << reoID << " is already booked for " << date << ".\n";
+                break;
+            }
             if (!rManager.isReservationIDExists(resID)) {
                 rManager.insertReservation(resID, reoID, stuID, name, date);
             } else {
