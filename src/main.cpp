@@ -111,7 +111,7 @@ int main() {
             std::cin.ignore(); 
             std::cout << "Enter Student Name (Ex. John Doe): ";
             std::getline(std::cin, name);
-            std::cout << "Enter Date (YYYY/MM/DD): ";
+            std::cout << "Enter Date (MM/DD/YYYY): "; // Noww displays correct date format
             std::cin >> date;
 
             //Validate if the resource exists in the system before adding the reservation
@@ -128,7 +128,15 @@ int main() {
                 break; 
             }
             if (rManager.isResourceBooked(reoID, date)) {
-                std::cout << " == Error: Resource " << reoID << " is already booked for " << date << " ==" << std::endl;
+                std::cout << " == Resource " << reoID << " is already booked for " << date << " ==" << std::endl;
+                std::cout << "Add yourself to the waitlist? (y/n): ";
+                char choice;
+                std::cin >> choice;
+
+                if (choice == 'y' || choice == 'Y') {
+                    rManager.addToWaitlist(reoID, stuID, name);
+                    std::cout << " == Added to the waitlist. ==" << std::endl;
+            }
                 break;
             }
             if (!rManager.isReservationIDExists(resID)) {
