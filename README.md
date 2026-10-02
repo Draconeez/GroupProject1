@@ -10,3 +10,16 @@ https://github.com/Draconeez/GroupProject1
 Aryn 
 Will
 KC
+
+#**Structure**
+==== Campus Resource Reservation System =====
+
+View Resources
+Create Reservation
+Cancel Reservation
+View Waiting Lists
+Undo Cancellation
+Search Reservations
+Sort Resources
+Generate Report
+Exit
