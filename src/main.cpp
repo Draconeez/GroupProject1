@@ -82,14 +82,16 @@ int main() {
     std::cout << "====== Welcome to the Resource Reservation System! =====" << std::endl;
     std::cout << "Select an option from the menu below:" << std::endl;
     std::cout << "1. Display All Reservations" << std::endl;
-    std::cout << "2. Display Waitlist" << std::endl;
-    std::cout << "3. Add Reservation" << std::endl;
-    std::cout << "4. Delete Reservation" << std::endl;
-    std::cout << "5. Add to Waitlist" << std::endl;
-    std::cout << "6. Remove from Waitlist" << std::endl;
+    std::cout << "2. View Waitlist" << std::endl;
+    std::cout << "3. Create a Reservation" << std::endl;
+    std::cout << "4. Cancel Reservation" << std::endl;
+    //std::cout << "5. Add to Waitlist" << std::endl;
+    //std::cout << "6. Remove from Waitlist" << std::endl;
+    std:: cout<< "5. Search Reservations" << std::endl;
+    std:: cout <<"6. Sort Resources" << std::endl;
     std::cout << "7. Undo Reservation Cancellation" << std::endl;
-    std::cout << "8. Display Cancellation History" << std::endl;
-    std::cout << "9. Display Resource Information" << std::endl;
+    std::cout << "8. Generate Full Report" << std::endl;
+    std::cout << "9. View Resources" << std::endl;
     std::cout << "10. Exit" << std::endl;
     std::cin >> caseNumber;
     switch(caseNumber) 
@@ -111,7 +113,7 @@ int main() {
             std::cin.ignore(); 
             std::cout << "Enter Student Name (Ex. John Doe): ";
             std::getline(std::cin, name);
-            std::cout << "Enter Date (YYYY/MM/DD): ";
+            std::cout << "Enter Date (DD/MM/YYYY): ";
             std::cin >> date;
 
             //Validate if the resource exists in the system before adding the reservation
