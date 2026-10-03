@@ -101,9 +101,9 @@ int main() {
             rManager.displayWaitlist();
             break;
         case 3: {
-            std::string resID, reoID, stuID, name, date;
-            std::cout << "Enter Reservation ID (Ex. 001): ";
-            std::cin >> resID;
+            std::string resID = rManager.getNextReservationID();
+            std::string reoID, stuID, name, date;
+            std::cout << "Generated Reservation ID: " << resID << std::endl;
             std::cout << "Enter Resource ID(R102 - R120): ";
             std::cin >> reoID;
             std::cout << "Enter Student ID (Ex. 1234): ";
