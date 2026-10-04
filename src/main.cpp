@@ -172,6 +172,8 @@ int main() {
             }
             if (rManager.isResourceBooked(reoID, date)) {
                 std::cout << " == Error: Resource " << reoID << " is already booked for " << date << " ==" << std::endl;
+                rManager.addToWaitlist(reoID, stuID, name, date);
+                std::cout << " -> " << name << " (" << stuID << ") has been added to the waitlist for resource " << reoID << " on " << date << "." << std::endl;
                 break;
             }
             if (!rManager.isReservationIDExists(resID,false)) {
@@ -208,30 +210,6 @@ int main() {
             std::cout << "Resources successfully sorted by ID." << std::endl;
             break;
         }
-            /*
-        case 5:
-              {  std::string reoID, stuID, name;
-                std::cout << "Enter Resource ID(R102 - R120): ";
-                std::cin >> reoID;
-                std::cout << "Enter Student ID (Ex. 1234): ";
-                std::cin >> stuID;
-                std::cin.ignore();
-                std::cout << "Enter Student Name (Ex. John Doe): ";
-                std::getline(std::cin, name);
-            rManager.addToWaitlist(reoID, stuID, name);
-            break;
-              }
-        case 6:
-        {
-            std::string reoID, stuID;
-                std::cout << "Enter Resource ID(R102 - R120): ";
-                std::cin >> reoID;
-                std::cout << "Enter Student ID (Ex. 1234): ";
-                std::cin >> stuID;
-            rManager.removeFromWaitlist(reoID, stuID); 
-            break;
-        }
-        */
         case 7:
             rManager.undoLastCancellation(); 
             break;

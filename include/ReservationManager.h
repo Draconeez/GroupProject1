@@ -11,6 +11,7 @@ struct WaitList{
     std::string resourceID;
     std::string studentID;
     std::string studentName;
+    std::string date;
 };
 class ReservationManager {
     public:
@@ -19,7 +20,7 @@ class ReservationManager {
     void insertReservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d);
     void deleteReservation(std::string resID);
     void displayReservations();
-    void addToWaitlist(std::string reoID, std::string stuID, std::string name);
+    void addToWaitlist(std::string reoID, std::string stuID, std::string name, std::string date);
     void removeFromWaitlist(std::string reoID, std::string stuID);
     void displayWaitlist();
     void displayCancellationHistory();

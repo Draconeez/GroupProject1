@@ -32,6 +32,7 @@ ReservationManager::~ReservationManager()
         }
     void ReservationManager::deleteReservation(std::string resID)
     {
+        Reservation* tempNode = nullptr;
         //If empty list, return
         if (head == nullptr) 
         {
@@ -41,10 +42,8 @@ ReservationManager::~ReservationManager()
         //If at the head
         if (head->getReservationID() == resID) 
         {
-            Reservation* tempNode = head;
-            head = head->getNext(); 
-            cancelHistory.push(*tempNode);
-            delete tempNode;            
+            tempNode = head;
+            head = head->getNext();            
         }
         else
         {
@@ -55,15 +54,58 @@ ReservationManager::~ReservationManager()
             }
             //If found, delete the node
             if (current->getNext() != nullptr) {
-                Reservation* tempNode = current->getNext();
+                tempNode = current->getNext();
                 current->setNext(tempNode->getNext());
-                cancelHistory.push(*tempNode);
-                delete tempNode;
+                
             }
         }
-        
+        if (tempNode == nullptr) {
+        std::cout << " == Error: Reservation ID " << resID << " not found. ==" << std::endl;
+        return;
+    }
+    // Keep the details of the reservation
+    std::string freedResourceID = tempNode->getResourceID();
+    std::string freedDate = tempNode->getDate();
+
+    // Push the reservation to the cancel history and delete it
+    cancelHistory.push(*tempNode);
+    delete tempNode;            
+    std::cout << " == Reservation " << resID << " canceled successfully. ==" << std::endl;
+
+    // Waitlist Promo
+    std::queue<WaitList> tempQueue;
+    bool promoted = false;
+
+    while (!waitlist.empty()) 
+    {
+        WaitList candidate = waitlist.front();
+        waitlist.pop();
+
+        // Check if someone is waiting for this exact resource and date
+        if (!promoted && candidate.resourceID == freedResourceID && candidate.date == freedDate) 
+        {
+            promoted = true;
+            
+            // Create a unique ID for the newly promoted reservation (e.g., "W-1234")
+            std::string autoResID = "W-" + candidate.studentID; 
+            
+            // Insert them directly into the active reservations
+            insertReservation(autoResID, candidate.resourceID, candidate.studentID, candidate.studentName, candidate.date);
+            
+            std::cout << "\nA slot opened up for " << candidate.resourceID << " on " << candidate.date << std::endl;
+            std::cout << " -> Waitlisted student " << candidate.studentName 
+                      << " was automatically promoted to an active reservation (ID: " << autoResID << ")." << std::endl;
+        } 
+        else 
+        {
+            tempQueue.push(candidate);
+        }
     }
     
+    // Restore the waitlist queue
+    waitlist = tempQueue; 
+}
+
     void ReservationManager::displayReservations()
     {
         if (head == nullptr) 
@@ -106,10 +148,12 @@ ReservationManager::~ReservationManager()
         }
         return false;
     }
-    void ReservationManager::addToWaitlist(std::string reoID, std::string stuID, std::string name)
+    void ReservationManager::addToWaitlist(std::string reoID, std::string stuID, std::string name,std::string date)
     {
-        WaitList addedStudent = {reoID, stuID, name};
+        WaitList addedStudent = {reoID, stuID, name, date};
         waitlist.push(addedStudent);
+        std::cout << "\nResource " << reoID << " is currently occupied on " << date << ".\n"
+              << " -> " << name << " (" << stuID << ") has been automatically added to the waitlist!" << std::endl;
     }
     void ReservationManager::removeFromWaitlist(std::string reoID, std::string stuID)
     {
@@ -134,7 +178,7 @@ ReservationManager::~ReservationManager()
         std::queue<WaitList> tempList = waitlist; // Copy so we don't destroy the real queue
         while (!tempList.empty()) {
             WaitList front = tempList.front();
-            std::cout << " == " << front.studentName << " (" << front.studentID << ") waiting for resource " << front.resourceID << " ==" << std::endl;
+            std::cout << " == " << front.studentName << " (" << front.studentID << ") waiting for resource " << front.resourceID << " on " << front.date << " ==" << std::endl;
             tempList.pop();
         }
     }
