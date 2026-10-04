@@ -126,10 +126,8 @@ int main() {
     std::cout << "2. View Waitlist" << std::endl;
     std::cout << "3. Create a Reservation" << std::endl;
     std::cout << "4. Cancel Reservation" << std::endl;
-    //std::cout << "5. Add to Waitlist" << std::endl;
-    //std::cout << "6. Remove from Waitlist" << std::endl;
-    std:: cout<< "5. Search Reservations" << std::endl;
-    std:: cout <<"6. Sort Resources" << std::endl;
+    std::cout << "5. Search Reservations" << std::endl;
+    std::cout << "6. Sort Resources" << std::endl;
     std::cout << "7. Undo Reservation Cancellation" << std::endl;
     std::cout << "8. Generate Full Report" << std::endl;
     std::cout << "9. View Resources" << std::endl;
