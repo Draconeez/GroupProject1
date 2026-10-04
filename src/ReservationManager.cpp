@@ -78,12 +78,18 @@ ReservationManager::~ReservationManager()
             current = current->getNext();
         }
     }
-    bool ReservationManager::isReservationIDExists(std::string resID) {
+ 
+    bool ReservationManager::isReservationIDExists(std::string resID, bool details) {
         Reservation* current = head;
         while (current != nullptr) {
             if (current->getReservationID() == resID) {
+                if (details) {
+                std::cout << "\nReservation Found" << std::endl;
+                current->DisplayReservationInfo();
+            }
                 return true;
             }
+            
             current = current->getNext();
         }
         return false;
@@ -94,6 +100,7 @@ ReservationManager::~ReservationManager()
             if (current->getResourceID() == resourceID && current->getDate() == date) {
                 return true;
             }
+            
             current = current->getNext();
         }
         return false;

@@ -44,6 +44,7 @@ void resourceLoad(std::vector<Resource>& resources)
     }
     file.close();
 }
+
 void reservationFill(ReservationManager& resManager) 
 {
     std::ifstream file("data/reservations.txt");
@@ -69,6 +70,46 @@ void reservationFill(ReservationManager& resManager)
     }
     file.close();
 }
+
+//Swaps two Resources in vector
+void swapResources(Resource& a, Resource& b) 
+{
+    Resource temp = a;
+    a = b;
+    b = temp;
+}
+
+//Resource partition for Quick Sort
+int partition(std::vector<Resource>& resources, int low, int high)
+{
+    std::string pivot = resources[high].getResourceID();
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (resources[j].getResourceID() < pivot) {
+
+            i++;
+
+            swapResources(resources[i], resources[j]);
+        }
+    }
+    swapResources(resources[i + 1], resources[high]);
+    return i + 1;
+}
+
+//Quick Sort function for Resources
+void quickSort(std::vector<Resource>& resources, int low, int high) {
+
+    if (low < high) {
+
+        int pivotIndex = partition(resources, low, high);
+
+        quickSort(resources, low, pivotIndex - 1);
+
+        quickSort(resources, pivotIndex + 1, high);
+
+    }
+}
+
 int main() {
     //Load resources from file
     std::vector<Resource> resources;
@@ -133,7 +174,7 @@ int main() {
                 std::cout << " == Error: Resource " << reoID << " is already booked for " << date << " ==" << std::endl;
                 break;
             }
-            if (!rManager.isReservationIDExists(resID)) {
+            if (!rManager.isReservationIDExists(resID,false)) {
                 rManager.insertReservation(resID, reoID, stuID, name, date);
             } else {
                 std::cout << " == Error: Reservation ID " << resID << " already exists ==" << std::endl;
@@ -147,6 +188,19 @@ int main() {
             std::cin >> resID;
             rManager.deleteReservation(resID);
             break;}
+        case 5:
+        {
+            std::cout<< "Search functionality not implemented yet." << std::endl;
+                break;
+        }
+        case 6:
+        {
+            std::cout << "Sorting resources..." << std::endl;
+            quickSort(resources, 0, static_cast<int>((resources.size() - 1)));
+            std::cout << "Resources successfully sorted by ID." << std::endl;
+            break;
+        }
+            /*
         case 5:
               {  std::string reoID, stuID, name;
                 std::cout << "Enter Resource ID(R102 - R120): ";
@@ -169,6 +223,7 @@ int main() {
             rManager.removeFromWaitlist(reoID, stuID); 
             break;
         }
+        */
         case 7:
             rManager.undoLastCancellation(); 
             break;
