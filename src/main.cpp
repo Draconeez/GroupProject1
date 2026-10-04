@@ -177,7 +177,7 @@ int main() {
                 std::cin >> choice;
 
                 if (choice == 'y' || choice == 'Y') {
-                    rManager.addToWaitlist(reoID, stuID, name);
+                    rManager.addToWaitlist(reoID, stuID, name, date);
                     std::cout << " == Added to the waitlist. ==" << std::endl;
             }
                 break;
