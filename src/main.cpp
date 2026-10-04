@@ -188,11 +188,19 @@ int main() {
             std::cin >> resID;
             rManager.deleteReservation(resID);
             break;}
+        //Required Search:Reservations
         case 5:
         {
-            std::cout<< "Search functionality not implemented yet." << std::endl;
+            std::string resID;
+                std::cout << "Enter Reservation ID to search (Ex. 001): ";
+                std::cin >> resID;
+                
+                if (!rManager.isReservationIDExists(resID, true)) {
+                    std::cout << "Reservation ID " << resID << " not found."<< std::endl;
+                }
                 break;
         }
+        //Required Sort:Resources
         case 6:
         {
             std::cout << "Sorting resources..." << std::endl;

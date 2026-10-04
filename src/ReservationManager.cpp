@@ -84,8 +84,9 @@ ReservationManager::~ReservationManager()
         while (current != nullptr) {
             if (current->getReservationID() == resID) {
                 if (details) {
-                std::cout << "\nReservation Found" << std::endl;
-                current->DisplayReservationInfo();
+                std::cout << " Booked by " << current->getStudentName() << " (ID: " << current->getStudentID() 
+                << ") for Resource " << current->getResourceID() << " on " << current->getDate() << "." << std::endl;
+                
             }
                 return true;
             }

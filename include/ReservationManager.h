@@ -24,7 +24,7 @@ class ReservationManager {
     void displayWaitlist();
     void displayCancellationHistory();
     void undoLastCancellation();
-    bool isReservationIDExists(std::string resID, bool details);
+    bool isReservationIDExists(std::string resID, bool details=false);
     bool isResourceBooked(std::string resourceID, std::string date);
     private:
     Reservation* head;
