@@ -11,21 +11,21 @@ struct WaitList{
     std::string resourceID;
     std::string studentID;
     std::string studentName;
+    std::string date;
 };
 class ReservationManager {
     public:
     ReservationManager();
     ~ReservationManager();
-    
     void insertReservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d);
     void deleteReservation(std::string resID);
     void displayReservations();
-    void addToWaitlist(std::string reoID, std::string stuID, std::string name);
+    void addToWaitlist(std::string reoID, std::string stuID, std::string name, std::string date);
     void removeFromWaitlist(std::string reoID, std::string stuID);
     void displayWaitlist();
     void displayCancellationHistory();
     void undoLastCancellation();
-    bool isReservationIDExists(std::string resID);
+    bool isReservationIDExists(std::string resID, bool details=false);
     bool isResourceBooked(std::string resourceID, std::string date);
     private:
     Reservation* head;

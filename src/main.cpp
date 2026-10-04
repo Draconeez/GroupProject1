@@ -44,6 +44,7 @@ void resourceLoad(std::vector<Resource>& resources)
     }
     file.close();
 }
+
 void reservationFill(ReservationManager& resManager) 
 {
     std::ifstream file("data/reservations.txt");
@@ -69,6 +70,46 @@ void reservationFill(ReservationManager& resManager)
     }
     file.close();
 }
+
+//Swaps two Resources in vector
+void swapResources(Resource& a, Resource& b) 
+{
+    Resource temp = a;
+    a = b;
+    b = temp;
+}
+
+//Resource partition for Quick Sort
+int partition(std::vector<Resource>& resources, int low, int high)
+{
+    std::string pivot = resources[high].getResourceID();
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (resources[j].getResourceID() < pivot) {
+
+            i++;
+
+            swapResources(resources[i], resources[j]);
+        }
+    }
+    swapResources(resources[i + 1], resources[high]);
+    return i + 1;
+}
+
+//Quick Sort function for Resources
+void quickSort(std::vector<Resource>& resources, int low, int high) {
+
+    if (low < high) {
+
+        int pivotIndex = partition(resources, low, high);
+
+        quickSort(resources, low, pivotIndex - 1);
+
+        quickSort(resources, pivotIndex + 1, high);
+
+    }
+}
+
 int main() {
     //Load resources from file
     std::vector<Resource> resources;
@@ -82,14 +123,16 @@ int main() {
     std::cout << "====== Welcome to the Resource Reservation System! =====" << std::endl;
     std::cout << "Select an option from the menu below:" << std::endl;
     std::cout << "1. Display All Reservations" << std::endl;
-    std::cout << "2. Display Waitlist" << std::endl;
-    std::cout << "3. Add Reservation" << std::endl;
-    std::cout << "4. Delete Reservation" << std::endl;
-    std::cout << "5. Add to Waitlist" << std::endl;
-    std::cout << "6. Remove from Waitlist" << std::endl;
+    std::cout << "2. View Waitlist" << std::endl;
+    std::cout << "3. Create a Reservation" << std::endl;
+    std::cout << "4. Cancel Reservation" << std::endl;
+    //std::cout << "5. Add to Waitlist" << std::endl;
+    //std::cout << "6. Remove from Waitlist" << std::endl;
+    std:: cout<< "5. Search Reservations" << std::endl;
+    std:: cout <<"6. Sort Resources" << std::endl;
     std::cout << "7. Undo Reservation Cancellation" << std::endl;
-    std::cout << "8. Display Cancellation History" << std::endl;
-    std::cout << "9. Display Resource Information" << std::endl;
+    std::cout << "8. Generate Full Report" << std::endl;
+    std::cout << "9. View Resources" << std::endl;
     std::cout << "10. Exit" << std::endl;
     std::cin >> caseNumber;
     switch(caseNumber) 
@@ -111,7 +154,7 @@ int main() {
             std::cin.ignore(); 
             std::cout << "Enter Student Name (Ex. John Doe): ";
             std::getline(std::cin, name);
-            std::cout << "Enter Date (MM/DD/YYYY): "; // Noww displays correct date format
+            std::cout << "Enter Date (MM/DD/YYYY): "; // Now displays correct date format
             std::cin >> date;
 
             //Validate if the resource exists in the system before adding the reservation
@@ -139,7 +182,7 @@ int main() {
             }
                 break;
             }
-            if (!rManager.isReservationIDExists(resID)) {
+            if (!rManager.isReservationIDExists(resID,false)) {
                 rManager.insertReservation(resID, reoID, stuID, name, date);
             } else {
                 std::cout << " == Error: Reservation ID " << resID << " already exists ==" << std::endl;
@@ -153,26 +196,24 @@ int main() {
             std::cin >> resID;
             rManager.deleteReservation(resID);
             break;}
+        //Required Search:Reservations
         case 5:
-              {  std::string reoID, stuID, name;
-                std::cout << "Enter Resource ID(R102 - R120): ";
-                std::cin >> reoID;
-                std::cout << "Enter Student ID (Ex. 1234): ";
-                std::cin >> stuID;
-                std::cin.ignore();
-                std::cout << "Enter Student Name (Ex. John Doe): ";
-                std::getline(std::cin, name);
-            rManager.addToWaitlist(reoID, stuID, name);
-            break;
-              }
+        {
+            std::string resID;
+                std::cout << "Enter Reservation ID to search (Ex. 001): ";
+                std::cin >> resID;
+                
+                if (!rManager.isReservationIDExists(resID, true)) {
+                    std::cout << "Reservation ID " << resID << " not found."<< std::endl;
+                }
+                break;
+        }
+        //Required Sort:Resources
         case 6:
         {
-            std::string reoID, stuID;
-                std::cout << "Enter Resource ID(R102 - R120): ";
-                std::cin >> reoID;
-                std::cout << "Enter Student ID (Ex. 1234): ";
-                std::cin >> stuID;
-            rManager.removeFromWaitlist(reoID, stuID); 
+            std::cout << "Sorting resources..." << std::endl;
+            quickSort(resources, 0, static_cast<int>((resources.size() - 1)));
+            std::cout << "Resources successfully sorted by ID." << std::endl;
             break;
         }
         case 7:
