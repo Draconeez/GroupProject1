@@ -275,7 +275,6 @@ ReservationManager::~ReservationManager()
     // Display waiting-list statistics
     std::cout << "\n[ WAITING-LIST STATISTICS ]"<<std::endl;
     std::queue<WaitList> tempQueue = waitlist; 
-    bool waitlistEmptyFlag = tempQueue.empty();
     // Count the number of students waiting for each resource
     while (!tempQueue.empty()) 
     {
