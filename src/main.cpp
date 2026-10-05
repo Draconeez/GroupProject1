@@ -161,15 +161,15 @@ int main() {
                 break; 
             }
             //Validate if the resource exists in the system before adding the reservation
-            bool resourceExists = false;
+            size_t resourceIndex = resources.size(); // Initialize to an invalid index  
             for (size_t i = 0; i < resources.size(); i++) {
             if (resources[i].getResourceID() == reoID) 
             {
-                resourceExists = true;
+                resourceIndex = i; // Store the index of the found resource 
                 break;
             }
             }
-            if (!resourceExists) {
+            if (resourceIndex == resources.size()) { // If the resource was not found, display an error message
                 std::cout << " == Error: Resource " << reoID << " does not exist in the system ==" << std::endl;
                 break; 
             }
@@ -183,6 +183,9 @@ int main() {
                     rManager.addToWaitlist(resID,reoID, stuID, name, date);
                     std::cout << " == Added to the waitlist. ==" << std::endl;
              }
+             rManager.insertReservation(resID, reoID, stuID, name, date);
+            resources[resourceIndex].setAvailable(false); // Set the resource as unavailable after booking 
+            std::cout << " == Reservation successfully created. ==" << std::endl; // confirmation message 
                 break;
             }
             rManager.insertReservation(resID, reoID, stuID, name, date);
