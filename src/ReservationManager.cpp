@@ -204,7 +204,16 @@ ReservationManager::~ReservationManager()
             return;
         }
         Reservation lastCancelled = cancelHistory.pop();
-        insertReservation(lastCancelled.getReservationID(), lastCancelled.getResourceID(), lastCancelled.getStudentID(), lastCancelled.getStudentName(), lastCancelled.getDate());
+        if (isResourceBooked(lastCancelled.getResourceID(), lastCancelled.getDate())) {
+        std::cout << " == Error: Cannot undo cancellation. Resource " << lastCancelled.getResourceID() << " has already been filled by the waitlist for " << lastCancelled.getDate() << ". ==\n";
+        addToWaitlist(lastCancelled.getReservationID(), lastCancelled.getResourceID(), lastCancelled.getStudentID(), lastCancelled.getStudentName(), lastCancelled.getDate());
+        std::cout << " == Added back to the waitlist. ==" << std::endl;
+        return;
+        }
+        else {
+            insertReservation(lastCancelled.getReservationID(), lastCancelled.getResourceID(), lastCancelled.getStudentID(), lastCancelled.getStudentName(), lastCancelled.getDate());
+            std::cout << " == Successfully restored the last cancelled reservation. ==" << std::endl;
+        }
     }
 
     void ReservationManager::generateFullReport(std::vector<Resource>& resources){

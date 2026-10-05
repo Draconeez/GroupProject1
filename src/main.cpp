@@ -118,7 +118,7 @@ int main() {
     ReservationManager rManager;
     reservationFill(rManager);
     int caseNumber=0;   
-  while(caseNumber!=10)
+  while(caseNumber!=11)
   {
     std::cout << "====== Welcome to the Resource Reservation System! =====" << std::endl;
     std::cout << "Select an option from the menu below:" << std::endl;
@@ -131,7 +131,8 @@ int main() {
     std::cout << "7. Undo Reservation Cancellation" << std::endl;
     std::cout << "8. Generate Full Report" << std::endl;
     std::cout << "9. View Resources" << std::endl;
-    std::cout << "10. Exit" << std::endl;
+    std::cout << "10. View Cancellation History" << std::endl;
+    std::cout << "11. Exit" << std::endl;
     std::cin >> caseNumber;
     switch(caseNumber) 
         {
@@ -225,9 +226,12 @@ int main() {
             for(size_t i = 0; i < resources.size(); i++) {
             resources[i].DisplayResourceInfo();
             }
-            rManager.displayCancellationHistory();
-            break;    
+            
+            break;
         case 10:
+        rManager.displayCancellationHistory();
+        break;
+        case 11:
             std::cout << " *===== Exiting the program. =====* " << std::endl;
             break;
         default:
