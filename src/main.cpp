@@ -219,13 +219,14 @@ int main() {
             break;
         
         case 8:
-            rManager.displayCancellationHistory();
+            std::cout <<"Not implemented yet." << std::endl;
             break;
         
         case 9:
             for(size_t i = 0; i < resources.size(); i++) {
             resources[i].DisplayResourceInfo();
             }
+            rManager.displayCancellationHistory();
             break;    
         case 10:
             std::cout << " *===== Exiting the program. =====* " << std::endl;
