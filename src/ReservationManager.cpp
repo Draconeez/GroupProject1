@@ -290,20 +290,9 @@ ReservationManager::~ReservationManager()
         tempQueue.pop();
     }
     // Display waitlist counts per resource
-    if (waitlistEmptyFlag) 
+    for (size_t i = 0; i < resources.size(); i++) 
     {
-        std::cout << " - The waitlist is currently empty."<<std::endl;
-    } 
-    else 
-    {
-        // Loop through resources to display the number of students waiting for each resource
-        for (size_t i = 0; i < resources.size(); i++) 
-        {
-            if (waitlistCount[i] > 0) 
-            {
-                std::cout << " - Resource " << resources[i].getResourceID() << ": " << waitlistCount[i] << " students waiting"<<std::endl;
-            }
-        }
-    } 
+        std::cout << " - Resource " << resources[i].getResourceID() << " (" << resources[i].getResourceName() << "): " << waitlistCount[i] << " students waiting"<<std::endl;
+    }
     std::cout << "==============================================="<<std::endl<<std::endl;
 }
