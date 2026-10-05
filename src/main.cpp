@@ -219,7 +219,7 @@ int main() {
             break;
         
         case 8:
-            std::cout <<"Not implemented yet." << std::endl;
+            rManager.generateFullReport(resources);
             break;
         
         case 9:
