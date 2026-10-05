@@ -1,5 +1,6 @@
 #include "ReservationManager.h"
 #include <fstream>
+#include <sstream>
 
 ReservationManager::ReservationManager()
 {
@@ -146,6 +147,27 @@ ReservationManager::~ReservationManager()
             current = current->getNext();
         }
         return false;
+    }
+    std::string ReservationManager::getNextReservationID() {
+        int maxID = 0;
+        Reservation* current = head;
+        while (current) {  
+            std::string id = current->getReservationID();
+            std::string digits;
+            for (char ch : id) {
+                if (std::isdigit(static_cast<unsigned char>(ch))) digits.push_back(ch);
+            }
+            if (!digits.empty()) {
+                int v = std::stoi(digits);
+                if (v > maxID) maxID = v;
+            }
+            current = current->getNext();
+        }
+
+        int next = maxID + 1;
+        std::ostringstream oss;
+        oss << std::setw(3) << std::setfill('0') << next; // format 3##
+        return oss.str();
     }
     bool ReservationManager::isResourceBooked(std::string resourceID, std::string date) {
         Reservation* current = head;

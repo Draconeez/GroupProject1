@@ -28,6 +28,8 @@ class ReservationManager {
     void displayWaitlist();
     void displayCancellationHistory();
     void undoLastCancellation();
+    bool isReservationIDExists(std::string resID);
+    std::string getNextReservationID();
     void generateFullReport(std::vector<Resource>& resources);
     bool isWaitlistIDExists(std::string resID);
     bool isReservationIDExists(std::string resID, bool details=false);
