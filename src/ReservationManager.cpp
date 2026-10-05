@@ -198,11 +198,11 @@ ReservationManager::~ReservationManager()
     }
 
     void ReservationManager::generateFullReport(std::vector<Resource>& resources){
-    std::cout << "\n========== SYSTEM UTILIZATION REPORT ==========\n";
+    std::cout << "\n========== SYSTEM UTILIZATION REPORT ==========" << std::endl;
     
-    //Vectors to store counts for active reservations and waitlist per resource
-    std::vector<int> activeCounts(resources.size(), 0);
-    std::vector<int> waitlistCounts(resources.size(), 0);
+    //Vectors to store count for active reservations and waitlist per resource
+    std::vector<int> activeCount(resources.size(), 0);
+    std::vector<int> waitlistCount(resources.size(), 0);
     
     //Tally Current Active Reservations
     int totalActive = 0;
@@ -214,7 +214,7 @@ ReservationManager::~ReservationManager()
         {
             if (resources[i].getResourceID() == current->getResourceID()) 
             {
-                activeCounts[i]++;
+                activeCount[i]++;
                 break;
             }
         }
@@ -226,10 +226,10 @@ ReservationManager::~ReservationManager()
     // Display resource utilization based on active reservation counts
     std::cout << "[ RESOURCE UTILIZATION ]"<<std::endl;
     int maxRequests = 0;
-    
+    // Determine the maximum number of active reservations for any resource
     for (size_t i = 0; i < resources.size(); i++) 
     {
-        int count = activeCounts[i];
+        int count = activeCount[i];
         std::cout << " - " << resources[i].getResourceID() << " (" << resources[i].getResourceName() << "): " << count << " active reservations"<<std::endl;         
         if (count > maxRequests) 
         {
@@ -237,7 +237,7 @@ ReservationManager::~ReservationManager()
         }
     }
     // Identify the most requested resource(s)
-    std::cout << "\n[ MOST REQUESTED RESOURCE(S) ]"<<std::endl;
+    std::cout << "\n[ MOST REQUESTED RESOURCES ]"<<std::endl;
     if (maxRequests == 0) 
     {
         std::cout << " - No resources are currently booked."<<std::endl;
@@ -247,11 +247,9 @@ ReservationManager::~ReservationManager()
         // Loop through resources to find those with the maximum number of active reservations
         for (size_t i = 0; i < resources.size(); i++) 
         {
-            if (activeCounts[i] == maxRequests) 
+            if (activeCount[i] == maxRequests) 
             {
-                std::cout << " - " << resources[i].getResourceID() << " (" 
-                          << resources[i].getResourceName() << ") with " 
-                          << maxRequests << " reservations\n";
+                std::cout << " - " << resources[i].getResourceID() << " (" << resources[i].getResourceName() << ") with " << maxRequests << " reservations"<<std::endl;
             }
         }
     }
@@ -259,20 +257,20 @@ ReservationManager::~ReservationManager()
     std::cout << "\n[ WAITING-LIST STATISTICS ]"<<std::endl;
     std::queue<WaitList> tempQueue = waitlist; 
     bool waitlistEmptyFlag = tempQueue.empty();
-    
+    // Count the number of students waiting for each resource
     while (!tempQueue.empty()) 
     {
         for (size_t i = 0; i < resources.size(); i++) 
         {
             if (resources[i].getResourceID() == tempQueue.front().resourceID) 
             {
-                waitlistCounts[i]++;
+                waitlistCount[i]++;
                 break;
             }
         }
         tempQueue.pop();
     }
-    
+    // Display waitlist counts per resource
     if (waitlistEmptyFlag) 
     {
         std::cout << " - The waitlist is currently empty."<<std::endl;
@@ -282,10 +280,9 @@ ReservationManager::~ReservationManager()
         // Loop through resources to display the number of students waiting for each resource
         for (size_t i = 0; i < resources.size(); i++) 
         {
-            if (waitlistCounts[i] > 0) 
+            if (waitlistCount[i] > 0) 
             {
-                std::cout << " - Resource " << resources[i].getResourceID() << ": " 
-                          << waitlistCounts[i] << " student(s) waiting"<<std::endl;
+                std::cout << " - Resource " << resources[i].getResourceID() << ": " << waitlistCount[i] << " students waiting"<<std::endl;
             }
         }
     } 
