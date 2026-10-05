@@ -155,6 +155,10 @@ int main() {
             std::cout << "Enter Date (MM/DD/YYYY): "; // Now displays correct date format
             std::cin >> date;
 
+            if (rManager.isReservationIDExists(resID, false) || rManager.isWaitlistIDExists(resID)) {
+                std::cout << " == Error: Reservation ID " << resID << " is already in use. ==" << std::endl;
+                break; 
+            }
             //Validate if the resource exists in the system before adding the reservation
             bool resourceExists = false;
             for (size_t i = 0; i < resources.size(); i++) {
@@ -175,17 +179,12 @@ int main() {
                 std::cin >> choice;
 
                 if (choice == 'y' || choice == 'Y') {
-                    rManager.addToWaitlist(reoID, stuID, name, date);
+                    rManager.addToWaitlist(resID,reoID, stuID, name, date);
                     std::cout << " == Added to the waitlist. ==" << std::endl;
-            }
+             }
                 break;
             }
-            if (!rManager.isReservationIDExists(resID,false)) {
-                rManager.insertReservation(resID, reoID, stuID, name, date);
-            } else {
-                std::cout << " == Error: Reservation ID " << resID << " already exists ==" << std::endl;
-                break;
-            }
+            rManager.insertReservation(resID, reoID, stuID, name, date);
             break;
         }
         case 4:
