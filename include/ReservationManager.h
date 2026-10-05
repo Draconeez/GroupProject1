@@ -2,10 +2,12 @@
 #define RESERVATIONMANAGER_H
 #include "Reservation.h"
 #include "CancellationHistory.h"
+#include "Resource.h"
 #include <string>
 #include <iostream>
 #include <queue>
 #include <stack>
+#include <vector>
 
 struct WaitList{
     std::string resourceID;
@@ -25,6 +27,7 @@ class ReservationManager {
     void displayWaitlist();
     void displayCancellationHistory();
     void undoLastCancellation();
+    void generateFullReport(std::vector<Resource>& resources);
     bool isReservationIDExists(std::string resID, bool details=false);
     bool isResourceBooked(std::string resourceID, std::string date);
     private:
