@@ -110,6 +110,26 @@ void quickSort(std::vector<Resource>& resources, int low, int high) {
     }
 }
 
+int binarySearchResource(std::vector<Resource>& resources, const std::string& targetID) {
+    int left = 0;
+    int right = resources.size() - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        
+        if (resources[mid].getResourceID() == targetID) {
+            return mid; 
+        }
+        if (resources[mid].getResourceID() < targetID) {
+            left = mid + 1;
+        } else {
+            right = mid - 1; 
+        }
+    }
+    return -1; 
+}
+
 int main() {
     //Load resources from file
     std::vector<Resource> resources;
@@ -118,7 +138,7 @@ int main() {
     ReservationManager rManager;
     reservationFill(rManager);
     int caseNumber=0;   
-  while(caseNumber!=11)
+  while(caseNumber!=12)
   {
     std::cout << "====== Welcome to the Resource Reservation System! =====" << std::endl;
     std::cout << "Select an option from the menu below:" << std::endl;
@@ -132,9 +152,10 @@ int main() {
     std::cout << "8. Generate Full Report" << std::endl;
     std::cout << "9. View Resources" << std::endl;
     std::cout << "10. View Cancellation History" << std::endl;
-    std::cout << "11. Exit" << std::endl;
+    std::cout << "11. Search Resources" << std::endl;
+    std::cout << "12. Exit" << std::endl;
     std::cin >> caseNumber;
-    switch(caseNumber) 
+        switch(caseNumber) 
         {
         case 1:
             rManager.displayReservations();
@@ -183,6 +204,7 @@ int main() {
                     rManager.addToWaitlist(resID,reoID, stuID, name, date);
                     std::cout << " == Added to the waitlist. ==" << std::endl;
              }
+             break;
              rManager.insertReservation(resID, reoID, stuID, name, date);
             resources[resourceIndex].setAvailable(false); // Set the resource as unavailable after booking 
             std::cout << " == Reservation successfully created. ==" << std::endl; // confirmation message 
@@ -234,7 +256,27 @@ int main() {
         case 10:
         rManager.displayCancellationHistory();
         break;
+
+        //Binary Search for Resources
         case 11:
+        {
+            std::string search;
+            std::cout << "Enter Resource ID to search (Ex. R105): ";
+            std::cin >> search;
+            
+            // Binary search needs sorted array
+            std::cout << "Sorting resources for binary search" << std::endl;
+            quickSort(resources, 0, static_cast<int>(resources.size() - 1));
+            
+            int index = binarySearchResource(resources, search);
+            if (index != -1) {
+                std::cout << "Resource found: " << resources[index].getResourceID() << " (" << resources[index].getResourceName() << ")" << std::endl;
+            } else {
+                std::cout << "Resource ID " << search << " not found." << std::endl;
+            }
+            break;
+        }
+        case 12:
             std::cout << " *===== Exiting the program. =====* " << std::endl;
             break;
         default:

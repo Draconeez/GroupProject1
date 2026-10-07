@@ -14,7 +14,7 @@ ReservationManager::~ReservationManager()
         current = nextNode;
     }
 }
-
+    // Insert a new reservation into the linked list of reservations. If the list is empty, the new reservation becomes the head. Otherwise, it is appended to the end of the list.
     void ReservationManager::insertReservation(std::string resID,std::string reoID, std::string stuID, std::string name, std::string d)
     {
         Reservation* newNode = new Reservation(resID, reoID, stuID, name, d);
@@ -30,6 +30,8 @@ ReservationManager::~ReservationManager()
         }
             current->setNext(newNode);
         }
+
+    // Delete a reservation from the linked list based on its reservation ID. If the reservation is found, it is removed from the list and added to the cancel history. If the reservation is not found, an error message is displayed.
     void ReservationManager::deleteReservation(std::string resID)
     {
         Reservation* tempNode = nullptr;
@@ -103,6 +105,7 @@ ReservationManager::~ReservationManager()
     // Restore the waitlist queue
     waitlist = tempQueue; 
 }
+// Check if a waitlist entry with the given reservation ID exists. Returns true if found, false otherwise.
     bool ReservationManager::isWaitlistIDExists(std::string resID) 
     {
     std::queue<WaitList> tempQueue = waitlist; 
@@ -116,6 +119,7 @@ ReservationManager::~ReservationManager()
     }
     return false;
     }
+    // Display all active reservations in the linked list. If the list is empty, a message is shown.
     void ReservationManager::displayReservations()
     {
         if (head == nullptr) 
@@ -131,6 +135,7 @@ ReservationManager::~ReservationManager()
         }
     }
  
+    // Check if a reservation with the given reservation ID exists. If 'details' is true, display the reservation details.
     bool ReservationManager::isReservationIDExists(std::string resID, bool details) {
         Reservation* current = head;
         while (current != nullptr) {
@@ -147,6 +152,7 @@ ReservationManager::~ReservationManager()
         }
         return false;
     }
+    // Check if a resource is booked on a specific date. Returns true if booked, false otherwise.
     bool ReservationManager::isResourceBooked(std::string resourceID, std::string date) {
         Reservation* current = head;
         while (current != nullptr) {
@@ -158,6 +164,7 @@ ReservationManager::~ReservationManager()
         }
         return false;
     }
+    // Add a student to the waitlist for a specific resource and date.
     void ReservationManager::addToWaitlist(std::string resID,std::string reoID, std::string stuID, std::string name,std::string date)
     {
         WaitList addedStudent = {resID, reoID, stuID, name, date};
@@ -165,6 +172,7 @@ ReservationManager::~ReservationManager()
         std::cout << "\nResource " << reoID << " is currently occupied on " << date << ".\n"
               << " -> " << name << " (" << stuID << ") has been automatically added to the waitlist!" << std::endl;
     }
+    // Remove a student from the waitlist based on resource ID and student ID.
     void ReservationManager::removeFromWaitlist(std::string reoID, std::string stuID)
     {
         std::queue<WaitList> tempQueue;
@@ -178,6 +186,7 @@ ReservationManager::~ReservationManager()
         }
         waitlist = tempQueue; 
     }
+    // Display all students currently in the waitlist.
     void ReservationManager::displayWaitlist()
     {
         if (waitlist.empty()) 
@@ -192,10 +201,12 @@ ReservationManager::~ReservationManager()
             tempList.pop();
         }
     }
+    // Display the history of all cancelled reservations.
     void ReservationManager::displayCancellationHistory()
     {
         cancelHistory.displayHistory();
     }
+    // Undo the last cancellation by restoring the reservation if the resource is still available. If the resource is already booked, the reservation is added back to the waitlist.
     void ReservationManager::undoLastCancellation()
     {
         if (cancelHistory.isEmpty()) 
@@ -204,19 +215,22 @@ ReservationManager::~ReservationManager()
             return;
         }
         Reservation lastCancelled = cancelHistory.pop();
+        // Check if the resource for the last cancelled reservation is already booked. If it is, add the reservation back to the waitlist. Otherwise, restore the reservation.
         if (isResourceBooked(lastCancelled.getResourceID(), lastCancelled.getDate())) {
         std::cout << " == Error: Cannot undo cancellation. Resource " << lastCancelled.getResourceID() << " has already been filled by the waitlist for " << lastCancelled.getDate() << ". ==\n";
         addToWaitlist(lastCancelled.getReservationID(), lastCancelled.getResourceID(), lastCancelled.getStudentID(), lastCancelled.getStudentName(), lastCancelled.getDate());
         std::cout << " == Added back to the waitlist. ==" << std::endl;
         return;
         }
+        // If the resource is not booked, proceed to restore the reservation.
         else {
             insertReservation(lastCancelled.getReservationID(), lastCancelled.getResourceID(), lastCancelled.getStudentID(), lastCancelled.getStudentName(), lastCancelled.getDate());
             std::cout << " == Successfully restored the last cancelled reservation. ==" << std::endl;
         }
     }
-
-    void ReservationManager::generateFullReport(std::vector<Resource>& resources){
+    // Generate a full report of system utilization, including active reservations and resource utilization.
+    void ReservationManager::generateFullReport(std::vector<Resource>& resources)
+    {
     std::cout << "\n========== SYSTEM UTILIZATION REPORT ==========" << std::endl;
     
     //Vectors to store count for active reservations and waitlist per resource
@@ -226,6 +240,7 @@ ReservationManager::~ReservationManager()
     //Tally Current Active Reservations
     int totalActive = 0;
     Reservation* current = head;
+    // Traverse the linked list of active reservations to tally counts per resource.
     while (current != nullptr) 
     {
         totalActive++;
@@ -249,6 +264,7 @@ ReservationManager::~ReservationManager()
     for (size_t i = 0; i < resources.size(); i++) 
     {
         int count = activeCount[i];
+        // Display the number of active reservations for this resource.
         std::cout << " - " << resources[i].getResourceID() << " (" << resources[i].getResourceName() << "): " << count << " active reservations"<<std::endl;         
         if (count > maxRequests) 
         {
