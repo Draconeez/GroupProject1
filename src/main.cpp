@@ -155,7 +155,7 @@ int main() {
     std::cout << "9. View Resources" << std::endl;
     std::cout << "10. View Cancellation History" << std::endl;
     std::cout << "11. Search Resources" << std::endl;
-    std::cout << "12. Remove Most Recent Waitlist Entry" << std::endl;
+    std::cout << "12. Remove Waitlist Entry" << std::endl;
     std::cout << "13. Exit" << std::endl;
     std::cin >> caseNumber;
         switch(caseNumber) 
