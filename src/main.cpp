@@ -23,6 +23,7 @@ void resourceLoad(std::vector<Resource>& resources)
         {
             line.pop_back();
         }
+        if (line.empty()) continue;
         lineNumber++;
         int pos1 = line.find('|');
         int pos2 = line.find('|', pos1 + 1);
@@ -57,6 +58,7 @@ void reservationFill(ReservationManager& resManager)
         if (!line.empty() && line.back() == '\r') {
             line.pop_back();
         }
+        if (line.empty()) continue;
         int pos1 = line.find('|');
         int pos2 = line.find('|', pos1 + 1);
         int pos3 = line.find('|', pos2 + 1);
@@ -289,13 +291,14 @@ int main() {
         }
         case 12: 
         {
-            std::string reoID, stuID;
+            std::string reoID, stuID, date;
             std::cout << "Enter Resource ID to leave waitlist (Ex. R102): ";
             std::cin >> reoID;
             std::cout << "Enter your Student ID (Ex. 1234): ";
             std::cin >> stuID;
-            
-            rManager.removeFromWaitlist(reoID, stuID);
+            std::cout << "Enter the date of the reservation (Ex. 09/01/2025 ): ";
+            std::cin >> date;
+            rManager.removeFromWaitlist(reoID, stuID, date);
             std::cout << " == Removed from waitlist successfully. =="<<std::endl;
             break;
         }

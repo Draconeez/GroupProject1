@@ -173,17 +173,18 @@ ReservationManager::~ReservationManager()
               << " -> " << name << " (" << stuID << ") has been automatically added to the waitlist!" << std::endl;
     }
     // Remove a student from the waitlist based on resource ID and student ID.
-    void ReservationManager::removeFromWaitlist(std::string reoID, std::string stuID)
+    void ReservationManager::removeFromWaitlist(std::string reoID, std::string stuID, std::string date)
     {
         std::queue<WaitList> tempQueue;
         while (!waitlist.empty()) 
         {
             WaitList front = waitlist.front();
             waitlist.pop();
-            if (!(front.resourceID == reoID && front.studentID == stuID)) {
+            if (!(front.resourceID == reoID && front.studentID == stuID && front.date == date)) {
                 tempQueue.push(front);
             }
         }
+        
         waitlist = tempQueue; 
     }
     // Display all students currently in the waitlist.
@@ -215,6 +216,10 @@ ReservationManager::~ReservationManager()
             return;
         }
         Reservation lastCancelled = cancelHistory.pop();
+        if (isReservationIDExists(lastCancelled.getReservationID(), false)) {
+        std::cout << " == Error: Cannot undo. Reservation ID " << lastCancelled.getReservationID() << " has already been reassigned to a new booking. ==" << std::endl;
+        return; 
+    }
         // Check if the resource for the last cancelled reservation is already booked. If it is, add the reservation back to the waitlist. Otherwise, restore the reservation.
         if (isResourceBooked(lastCancelled.getResourceID(), lastCancelled.getDate())) {
         std::cout << " == Error: Cannot undo cancellation. Resource " << lastCancelled.getResourceID() << " has already been filled by the waitlist for " << lastCancelled.getDate() << ". ==\n";

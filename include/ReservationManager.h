@@ -24,7 +24,7 @@ class ReservationManager {
     void deleteReservation(std::string resID);
     void displayReservations();
     void addToWaitlist(std::string resID, std::string reoID, std::string stuID, std::string name, std::string date);
-    void removeFromWaitlist(std::string reoID, std::string stuID);
+    void removeFromWaitlist(std::string reoID, std::string stuID,std::string date);
     void displayWaitlist();
     void displayCancellationHistory();
     void undoLastCancellation();
