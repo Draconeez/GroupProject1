@@ -138,7 +138,7 @@ int main() {
     ReservationManager rManager;
     reservationFill(rManager);
     int caseNumber=0;   
-  while(caseNumber!=12)
+  while(caseNumber!=13)
   {
     std::cout << "====== Welcome to the Resource Reservation System! =====" << std::endl;
     std::cout << "Select an option from the menu below:" << std::endl;
@@ -153,7 +153,8 @@ int main() {
     std::cout << "9. View Resources" << std::endl;
     std::cout << "10. View Cancellation History" << std::endl;
     std::cout << "11. Search Resources" << std::endl;
-    std::cout << "12. Exit" << std::endl;
+    std::cout << "12. Remove Most Recent Waitlist Entry" << std::endl;
+    std::cout << "13. Exit" << std::endl;
     std::cin >> caseNumber;
         switch(caseNumber) 
         {
@@ -194,6 +195,19 @@ int main() {
                 std::cout << " == Error: Resource " << reoID << " does not exist in the system ==" << std::endl;
                 break; 
             }
+            // Check if the resource is available before proceeding with the reservation
+            if (!resources[resourceIndex].checkAvailable()) {
+                std::cout << " == Resource " << reoID << " is currently Unavailable. ==" << std::endl;
+                std::cout << "Add yourself to the waitlist? (y/n): ";
+                char choice;
+                std::cin >> choice;
+
+                if (choice == 'y' || choice == 'Y') {
+                    rManager.addToWaitlist(resID, reoID, stuID, name, date);
+                }
+                break; 
+            }
+            // Check if the resource is already booked for the given date before proceeding with the reservation
             if (rManager.isResourceBooked(reoID, date)) {
                 std::cout << " == Resource " << reoID << " is already booked for " << date << " ==" << std::endl;
                 std::cout << "Add yourself to the waitlist? (y/n): ";
@@ -205,10 +219,7 @@ int main() {
                     std::cout << " == Added to the waitlist. ==" << std::endl;
              }
              break;
-             rManager.insertReservation(resID, reoID, stuID, name, date);
-            resources[resourceIndex].setAvailable(false); // Set the resource as unavailable after booking 
-            std::cout << " == Reservation successfully created. ==" << std::endl; // confirmation message 
-                break;
+            
             }
             rManager.insertReservation(resID, reoID, stuID, name, date);
             break;
@@ -276,7 +287,19 @@ int main() {
             }
             break;
         }
-        case 12:
+        case 12: 
+        {
+            std::string reoID, stuID;
+            std::cout << "Enter Resource ID to leave waitlist (Ex. R102): ";
+            std::cin >> reoID;
+            std::cout << "Enter your Student ID (Ex. 1234): ";
+            std::cin >> stuID;
+            
+            rManager.removeFromWaitlist(reoID, stuID);
+            std::cout << " == Removed from waitlist successfully. =="<<std::endl;
+            break;
+        }
+        case 13:
             std::cout << " *===== Exiting the program. =====* " << std::endl;
             break;
         default:
