@@ -230,7 +230,12 @@ int main() {
            { std::string resID;
             std::cout << "Enter Reservation ID to delete (Ex. 001): ";
             std::cin >> resID;
-            rManager.deleteReservation(resID);
+            if(rManager.isReservationIDExists(resID, false)) {
+                rManager.deleteReservation(resID);
+            }
+            else {
+                std::cout << "Reservation ID " << resID << " not found." << std::endl;
+            }
             break;}
         //Required Search:Reservations
         case 5:
@@ -270,15 +275,15 @@ int main() {
         rManager.displayCancellationHistory();
         break;
 
-        //Binary Search for Resources
+        //Binary Search for Resources, another sorting requirement
         case 11:
         {
             std::string search;
             std::cout << "Enter Resource ID to search (Ex. R105): ";
             std::cin >> search;
             
-            // Binary search needs sorted array
-            std::cout << "Sorting resources for binary search" << std::endl;
+            // Binary search over resources needs sorted array
+            std::cout << "Sorting resources for binary search..." << std::endl;
             quickSort(resources, 0, static_cast<int>(resources.size() - 1));
             
             int index = binarySearchResource(resources, search);
@@ -296,7 +301,7 @@ int main() {
             std::cin >> reoID;
             std::cout << "Enter your Student ID (Ex. 1234): ";
             std::cin >> stuID;
-            std::cout << "Enter the date of the reservation (Ex. 09/01/2025 ): ";
+            std::cout << "Enter the date of the reservation (Ex. 09/01/2025): ";
             std::cin >> date;
             rManager.removeFromWaitlist(reoID, stuID, date);
             std::cout << " == Removed from waitlist successfully. =="<<std::endl;
