@@ -5,6 +5,7 @@
 #include "../include/Reservation.h"
 #include "../include/Resource.h"
 #include "../include/ReservationManager.h"
+//Function to load resources from file
 void resourceLoad(std::vector<Resource>& resources) 
 {
     //Open the file for reading and check if successful
@@ -45,7 +46,7 @@ void resourceLoad(std::vector<Resource>& resources)
     }
     file.close();
 }
-
+//Function to fill reservations from file
 void reservationFill(ReservationManager& resManager) 
 {
     std::ifstream file("data/reservations.txt");
@@ -111,15 +112,13 @@ void quickSort(std::vector<Resource>& resources, int low, int high) {
 
     }
 }
-
+//Binary Search function for Resources
 int binarySearchResource(std::vector<Resource>& resources, const std::string& targetID) {
     int left = 0;
     int right = resources.size() - 1;
 
     while (left <= right) {
-        int mid = left + (right - left) / 2;
-        
-        
+        int mid = left + (right - left) / 2; 
         if (resources[mid].getResourceID() == targetID) {
             return mid; 
         }
@@ -139,7 +138,8 @@ int main() {
     //Load reservations from file
     ReservationManager rManager;
     reservationFill(rManager);
-    int caseNumber=0;   
+    int caseNumber=0;  
+    // Main menu loop
   while(caseNumber!=13)
   {
     std::cout << "====== Welcome to the Resource Reservation System! =====" << std::endl;
@@ -158,6 +158,7 @@ int main() {
     std::cout << "12. Remove Waitlist Entry" << std::endl;
     std::cout << "13. Exit" << std::endl;
     std::cin >> caseNumber;
+    // Handle the user's menu selection
         switch(caseNumber) 
         {
         case 1:
